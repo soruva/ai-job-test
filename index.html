@@ -288,7 +288,12 @@ Try Again
 
 function shareX(){
 
-const text="I tested my AI job risk score. Try yours!"
+const text=`I tested my job against AI.
+
+My AI risk score was ${aiScore}%.
+
+Try it yourself:`
+
 const url=window.location.href
 
 window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`)
