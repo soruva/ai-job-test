@@ -47,9 +47,17 @@ width:80%;
 background:#475569;
 }
 
-.next{
-background:#06b6d4;
+.share{
+background:#22c55e;
 color:black;
+}
+
+.email{
+padding:12px;
+width:70%;
+border-radius:8px;
+border:none;
+margin-top:10px;
 }
 
 .result{
@@ -57,8 +65,10 @@ font-size:26px;
 margin-top:20px;
 }
 
-.progress{
-margin-bottom:20px;
+.score{
+font-size:40px;
+margin:20px;
+color:#06b6d4;
 }
 
 </style>
@@ -92,10 +102,18 @@ const questions=[
 "Do you work in unpredictable environments?"
 ]
 
+let job=""
 let index=0
 let score=0
 
-function startGame(){
+function start(){
+
+job=document.getElementById("job").value
+
+if(job==""){
+alert("Enter your job first")
+return
+}
 
 index=0
 score=0
@@ -103,9 +121,25 @@ showQuestion()
 
 }
 
-function showQuestion(){
+function showStart(){
 
-const game=document.getElementById("game")
+document.getElementById("game").innerHTML=`
+
+<h2>What is your job?</h2>
+
+<input id="job" class="email" placeholder="Example: Accountant">
+
+<br><br>
+
+<button class="start" onclick="start()">
+Start Test
+</button>
+
+`
+
+}
+
+function showQuestion(){
 
 if(index>=questions.length){
 
@@ -114,18 +148,16 @@ return
 
 }
 
-game.innerHTML=`
+document.getElementById("game").innerHTML=`
 
-<div class="progress">
-Question ${index+1} / ${questions.length}
-</div>
+<p>Question ${index+1} / ${questions.length}</p>
 
 <h2>${questions[index]}</h2>
 
 <button class="answer" onclick="answer(2)">Yes</button>
-
+<br>
 <button class="answer" onclick="answer(1)">Sometimes</button>
-
+<br>
 <button class="answer" onclick="answer(0)">No</button>
 
 `
@@ -149,8 +181,6 @@ showQuestion()
 }
 
 function showResult(){
-
-const game=document.getElementById("game")
 
 let result=""
 
@@ -178,31 +208,57 @@ result="High AI Risk"
 
 }
 
-game.innerHTML=`
+let aiScore=Math.round((score/20)*100)
 
-<div class="result">
+document.getElementById("game").innerHTML=`
 
-Your Result: <b>${result}</b>
+<h2>AI Risk Result for ${job}</h2>
 
-</div>
+<div class="score">${aiScore}/100</div>
 
-<p>Score: ${score} / 20</p>
+<div class="result">${result}</div>
 
-<button class="start" onclick="startGame()">Try Again</button>
+<p>Your career AI safety score</p>
+
+<h3>Get full AI-proof career report</h3>
+
+<input class="email" placeholder="Enter your email">
+
+<br>
+
+<button class="start">
+Unlock Full Report
+</button>
+
+<br><br>
+
+<button class="share" onclick="shareResult()">
+Share Result
+</button>
+
+<br>
+
+<button class="start" onclick="showStart()">
+Try Again
+</button>
 
 `
 
 }
 
-document.getElementById("game").innerHTML=`
+function shareResult(){
 
-<button class="start" onclick="startGame()">
+const text="I tested my AI job risk. Try it yourself!"
 
-Start Test
+const url=window.location.href
 
-</button>
+navigator.clipboard.writeText(url)
 
-`
+alert("Link copied! Share it on X or LinkedIn.")
+
+}
+
+showStart()
 
 </script>
 
