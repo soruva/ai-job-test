@@ -86,15 +86,28 @@ border:none;
 margin-top:10px;
 }
 
-.result{
-font-size:26px;
+.resultCard{
+background:#020617;
+border-radius:16px;
+padding:30px;
 margin-top:20px;
+border:2px solid #06b6d4;
 }
 
-.score{
-font-size:42px;
-margin:20px;
+.resultScore{
+font-size:60px;
+font-weight:bold;
 color:#06b6d4;
+margin:20px 0;
+}
+
+.resultLabel{
+font-size:18px;
+color:#94a3b8;
+}
+
+.resultStatus{
+font-size:24px;
 }
 
 footer{
@@ -146,22 +159,8 @@ const questions=[
 let job=""
 let index=0
 let score=0
-
-function start(){
-
-job=document.getElementById("job").value
-
-if(job==""){
-alert("Enter your job first")
-return
-}
-
-index=0
-score=0
-
-showQuestion()
-
-}
+let aiScore=0
+let result=""
 
 function showStart(){
 
@@ -178,6 +177,22 @@ Start Test
 </button>
 
 `
+
+}
+
+function start(){
+
+job=document.getElementById("job").value
+
+if(job==""){
+alert("Enter your job first")
+return
+}
+
+index=0
+score=0
+
+showQuestion()
 
 }
 
@@ -227,8 +242,6 @@ showQuestion()
 
 function showResult(){
 
-let result=""
-
 if(score>=16){
 result="Very Hard to Replace"
 }
@@ -242,33 +255,41 @@ else{
 result="High AI Risk"
 }
 
-let aiScore=Math.round((score/20)*100)
+aiScore=Math.round((score/20)*100)
 
 document.getElementById("game").innerHTML=`
 
 <h2>AI Risk Result for ${job}</h2>
 
-<div class="score">${aiScore}/100</div>
+<div class="resultCard">
 
-<div class="result">${result}</div>
+<div class="resultLabel">
+My AI Risk Score
+</div>
 
-<p>Your career AI safety score</p>
+<div class="resultScore">
+${aiScore}%
+</div>
 
-<h3>Share your result</h3>
+<div class="resultStatus">
+${result}
+</div>
 
-<button class="share" onclick="shareX()">
-Share on X
-</button>
+</div>
 
-<button class="share" onclick="shareReddit()">
-Share on Reddit
-</button>
+<br>
+
+<button class="share" onclick="shareX()">Share on X</button>
+
+<button class="share" onclick="shareReddit()">Share on Reddit</button>
+
+<button class="share" onclick="copyResult()">Copy Result</button>
 
 <br><br>
 
 <h3>Get full AI-proof career report</h3>
 
-<input class="email" placeholder="Enter your email">
+<input id="email" class="email" placeholder="Enter your email">
 
 <br>
 
@@ -306,7 +327,58 @@ function shareReddit(){
 
 const url=window.location.href
 
-window.open(`https://www.reddit.com/submit?url=${url}&title=AI Job Test`)
+const title=`I tested my job against AI – my score was ${aiScore}%`
+
+window.location.href=`https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`
+
+}
+
+function copyResult(){
+
+const text=`I tested my job against AI.
+
+My AI risk score was ${aiScore}%.
+
+Try it yourself:
+${window.location.href}`
+
+navigator.clipboard.writeText(text)
+
+alert("Result copied!")
+
+}
+
+function generateReport(){
+
+const email=document.getElementById("email").value
+
+if(email==""){
+alert("Enter your email to unlock the report")
+return
+}
+
+document.getElementById("game").innerHTML=`
+
+<h2>Your AI Career Report</h2>
+
+<p>Your AI risk score: <b>${aiScore}%</b></p>
+
+<p>${job} has a risk level of <b>${result}</b>.</p>
+
+<h3>Recommended AI-proof skills</h3>
+
+<ul>
+<li>Creative problem solving</li>
+<li>Human communication</li>
+<li>AI collaboration</li>
+<li>Strategic thinking</li>
+</ul>
+
+<p>We sent a deeper report to your email.</p>
+
+<button class="start" onclick="showStart()">Restart Test</button>
+
+`
 
 }
 
