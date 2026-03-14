@@ -29,24 +29,49 @@
   <style>
     :root{
       --bg:#0f172a;
+      --bg-2:#111827;
       --panel:#1e293b;
+      --panel-dark:#0b1220;
       --panel-2:#020617;
       --text:#ffffff;
-      --muted:#94a3b8;
+      --text-dark:#0f172a;
+      --muted:#64748b;
       --cyan:#06b6d4;
-      --green:#22c55e;
+      --cyan-2:#67e8f9;
+      --blue:#3b82f6;
+      --violet:#8b5cf6;
+      --pink:#ec4899;
+      --rose:#fb7185;
       --salmon:#ff8a80;
-      --slate:#334155;
-      --slate-hover:#475569;
+      --green:#22c55e;
+      --lime:#84cc16;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --safe-bg:#e0f2fe;
+      --risk-bg:#ffe4e6;
+      --faq-bg:#ffffff;
+      --info-bg:#f8fafc;
+      --tag-bg:#ffffff;
+      --tag-border:#e2e8f0;
       --border:#243447;
+      --shadow:0 14px 40px rgba(15,23,42,.22);
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
       font-family:Arial,Helvetica,sans-serif;
-      background:linear-gradient(180deg,#0f172a 0%, #111827 100%);
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(236,72,153,.12), transparent 22%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
       color:var(--text);
       text-align:center;
       padding:24px;
@@ -54,41 +79,58 @@
     }
 
     .container{
-      max-width:860px;
+      max-width:980px;
       margin:0 auto;
-      background:rgba(30,41,59,.92);
-      padding:32px 24px;
+      background:rgba(30,41,59,.88);
+      backdrop-filter:blur(8px);
+      padding:28px 20px 36px;
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #06b6d4 0%, #3b82f6 40%, #8b5cf6 72%, #ec4899 100%);
       border-radius:24px;
-      box-shadow:0 10px 30px rgba(0,0,0,.28);
+      padding:34px 22px;
+      margin-bottom:24px;
+      color:white;
+      box-shadow:0 12px 30px rgba(59,130,246,.24);
     }
 
-    h1{
-      font-size:40px;
-      margin:0 0 8px;
-    }
-
-    h2,h3{
-      margin-top:0;
-    }
-
-    p{
-      color:#e5e7eb;
-    }
-
-    .sub{
-      color:var(--muted);
-      max-width:680px;
-      margin:0 auto 24px;
-    }
-
-    .pill{
+    .heroBadge{
       display:inline-block;
       padding:8px 14px;
       border-radius:999px;
-      background:rgba(6,182,212,.12);
-      color:#a5f3fc;
-      font-size:14px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.25);
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.04em;
       margin-bottom:14px;
+    }
+
+    h1{
+      font-size:44px;
+      margin:0 0 8px;
+      line-height:1.05;
+    }
+
+    .hero p{
+      margin:0 auto;
+      max-width:720px;
+      font-size:18px;
+      color:#f8fafc;
+    }
+
+    h2,h3,h4{
+      margin-top:0;
+    }
+
+    .sub{
+      color:#dbeafe;
+      max-width:680px;
+      margin:0 auto 22px;
     }
 
     .grid3{
@@ -99,12 +141,13 @@
     }
 
     .miniCard{
-      background:#0b1220;
-      border:1px solid var(--border);
-      border-radius:16px;
+      background:rgba(255,255,255,.11);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:18px;
       padding:14px;
-      color:#dbeafe;
+      color:#f8fafc;
       font-size:14px;
+      font-weight:700;
     }
 
     button{
@@ -112,91 +155,105 @@
       margin:8px;
       font-size:16px;
       border:none;
-      border-radius:12px;
+      border-radius:14px;
       cursor:pointer;
-      transition:0.2s ease;
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
       font-weight:700;
     }
 
     button:hover{
       transform:translateY(-1px);
+      box-shadow:0 8px 16px rgba(15,23,42,.18);
     }
 
     .start{
-      background:var(--cyan);
+      background:linear-gradient(135deg,var(--cyan),var(--cyan-2));
       color:#081018;
     }
 
     .secondary{
-      background:#0b1220;
-      color:#fff;
-      border:1px solid var(--border);
+      background:#ffffff;
+      color:#0f172a;
+      border:1px solid #e2e8f0;
     }
 
     .answer{
-      background:var(--slate);
+      background:linear-gradient(135deg,#334155,#475569);
       color:white;
-      width:min(100%,560px);
+      width:min(100%,620px);
       display:block;
       margin:10px auto;
     }
 
     .answer:hover{
-      background:var(--slate-hover);
+      background:linear-gradient(135deg,#475569,#64748b);
     }
 
     .selected{
-      background:var(--salmon) !important;
-      color:#151515 !important;
+      background:linear-gradient(135deg,#ff8a80,#ffc4bd) !important;
+      color:#1f2937 !important;
       transform:scale(1.03);
-      box-shadow:0 0 0 3px rgba(255,138,128,.25);
+      box-shadow:0 0 0 4px rgba(255,138,128,.22);
     }
 
-    .share{
-      background:var(--green);
-      color:#07120a;
+    .shareX{
+      background:linear-gradient(135deg,#111827,#1f2937);
+      color:white;
+    }
+
+    .shareReddit{
+      background:linear-gradient(135deg,#ff4500,#ff7a45);
+      color:white;
+    }
+
+    .shareCopy{
+      background:linear-gradient(135deg,#22c55e,#86efac);
+      color:#052e16;
     }
 
     .email,.jobInput{
       padding:14px;
-      width:min(100%,500px);
-      border-radius:12px;
+      width:min(100%,520px);
+      border-radius:14px;
       border:1px solid #cbd5e1;
       margin-top:10px;
       font-size:16px;
+      background:#fff;
+      color:#0f172a;
     }
 
     .progressWrap{
-      max-width:560px;
+      max-width:620px;
       margin:0 auto 18px;
       text-align:left;
     }
 
     .progressLabel{
-      color:var(--muted);
+      color:#cbd5e1;
       font-size:14px;
       margin-bottom:8px;
+      font-weight:700;
     }
 
     .progressBar{
       width:100%;
-      height:12px;
+      height:14px;
       background:#0b1220;
       border-radius:999px;
       overflow:hidden;
-      border:1px solid var(--border);
+      border:1px solid rgba(255,255,255,.08);
     }
 
     .progressFill{
       height:100%;
-      background:linear-gradient(90deg,var(--cyan),#67e8f9);
+      background:linear-gradient(90deg,#06b6d4,#3b82f6,#8b5cf6);
       width:0%;
       transition:width .25s ease;
     }
 
     .resultCard{
-      background:var(--panel-2);
-      border-radius:18px;
+      background:linear-gradient(135deg,#0b1220,#111827);
+      border-radius:22px;
       padding:28px 20px;
       margin-top:20px;
       border:2px solid var(--cyan);
@@ -204,37 +261,76 @@
     }
 
     .resultLabel{
-      font-size:15px;
-      color:var(--muted);
-      letter-spacing:.04em;
+      font-size:14px;
+      color:#cbd5e1;
+      letter-spacing:.08em;
       text-transform:uppercase;
-    }
-
-    .resultScore{
-      font-size:64px;
-      font-weight:bold;
-      color:var(--cyan);
-      margin:14px 0 10px;
-      line-height:1;
-    }
-
-    .resultStatus{
-      font-size:28px;
       font-weight:700;
     }
 
+    .resultScore{
+      font-size:68px;
+      font-weight:bold;
+      margin:14px 0 10px;
+      line-height:1;
+      background:linear-gradient(135deg,#67e8f9,#3b82f6,#8b5cf6,#ec4899);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .resultStatus{
+      font-size:30px;
+      font-weight:700;
+      color:#ffffff;
+    }
+
     .smallMuted{
-      color:var(--muted);
+      color:#cbd5e1;
       font-size:14px;
+      max-width:720px;
+      margin:10px auto 0;
     }
 
     .section{
-      margin-top:48px;
-      background:#111827;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:22px;
+      margin-top:42px;
+      border-radius:22px;
+      padding:24px 20px;
       text-align:left;
+      box-shadow:0 8px 20px rgba(15,23,42,.08);
+    }
+
+    .section h3{
+      margin-bottom:8px;
+    }
+
+    .section p{
+      color:#334155;
+    }
+
+    .safeSection{
+      background:linear-gradient(135deg,#e0f2fe 0%, #ffffff 100%);
+      color:#0f172a;
+    }
+
+    .riskSection{
+      background:linear-gradient(135deg,#ffe4e6 0%, #fff1f2 100%);
+      color:#0f172a;
+    }
+
+    .faqSection{
+      background:#ffffff;
+      color:#0f172a;
+    }
+
+    .infoSection{
+      background:#f8fafc;
+      color:#0f172a;
+    }
+
+    .reportSection{
+      background:linear-gradient(135deg,#ffffff 0%, #f8fafc 100%);
+      color:#0f172a;
     }
 
     .twoCol{
@@ -243,10 +339,42 @@
       gap:16px;
     }
 
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .jobCard{
+      background:#ffffff;
+      border:1px solid var(--tag-border);
+      border-radius:18px;
+      padding:16px 12px;
+      text-align:center;
+      font-weight:700;
+      color:#0f172a;
+      box-shadow:0 6px 14px rgba(15,23,42,.06);
+    }
+
+    .jobCard.safe1{ background:linear-gradient(135deg,#dbeafe,#ffffff); }
+    .jobCard.safe2{ background:linear-gradient(135deg,#dcfce7,#ffffff); }
+    .jobCard.safe3{ background:linear-gradient(135deg,#ede9fe,#ffffff); }
+    .jobCard.safe4{ background:linear-gradient(135deg,#fef3c7,#ffffff); }
+    .jobCard.safe5{ background:linear-gradient(135deg,#cffafe,#ffffff); }
+    .jobCard.safe6{ background:linear-gradient(135deg,#fce7f3,#ffffff); }
+
+    .jobCard.risk1{ background:linear-gradient(135deg,#ffe4e6,#ffffff); }
+    .jobCard.risk2{ background:linear-gradient(135deg,#ffedd5,#ffffff); }
+    .jobCard.risk3{ background:linear-gradient(135deg,#fef2f2,#ffffff); }
+    .jobCard.risk4{ background:linear-gradient(135deg,#fee2e2,#ffffff); }
+    .jobCard.risk5{ background:linear-gradient(135deg,#ffe4e6,#fff7ed); }
+    .jobCard.risk6{ background:linear-gradient(135deg,#fff1f2,#ffffff); }
+
     ul{
       margin:10px 0 0 20px;
       padding:0;
-      color:#e5e7eb;
+      color:#0f172a;
     }
 
     li{
@@ -256,74 +384,134 @@
     .tagList{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:10px;
       justify-content:center;
       margin-top:14px;
     }
 
     .tag{
-      padding:8px 12px;
-      background:#0b1220;
-      border:1px solid var(--border);
+      padding:9px 14px;
       border-radius:999px;
-      color:#cbd5e1;
       font-size:14px;
+      font-weight:700;
+      background:#ffffff;
+      border:1px solid var(--tag-border);
+      color:#0f172a;
     }
 
-    .faqItem{
-      margin-bottom:18px;
+    .tag.safeA{ background:#dbeafe; }
+    .tag.safeB{ background:#dcfce7; }
+    .tag.safeC{ background:#ede9fe; }
+    .tag.safeD{ background:#fef3c7; }
+    .tag.safeE{ background:#cffafe; }
+    .tag.safeF{ background:#fce7f3; }
+
+    .tag.riskA{ background:#ffe4e6; }
+    .tag.riskB{ background:#ffedd5; }
+    .tag.riskC{ background:#fee2e2; }
+    .tag.riskD{ background:#fecaca; }
+    .tag.riskE{ background:#fff1f2; }
+    .tag.riskF{ background:#fef2f2; }
+
+    details{
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:14px 16px;
+      margin-bottom:12px;
     }
 
-    .faqItem h4{
-      margin:0 0 6px;
+    summary{
+      cursor:pointer;
+      font-weight:700;
+      color:#0f172a;
+      list-style:none;
+    }
+
+    summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .faqAnswer{
+      margin-top:10px;
+      color:#334155;
+    }
+
+    .anchorLinks{
+      margin-top:28px;
+      margin-bottom:8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:center;
+    }
+
+    .anchorLinks a{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      text-decoration:none;
       color:#fff;
+      font-weight:700;
+      font-size:14px;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .anchorLinks a:hover{
+      background:rgba(255,255,255,.18);
+    }
+
+    .notice{
+      background:linear-gradient(135deg,#dcfce7,#f0fdf4);
+      border:1px solid rgba(34,197,94,.25);
+      color:#166534;
+      padding:12px 14px;
+      border-radius:14px;
+      margin-top:14px;
+      font-size:14px;
     }
 
     footer{
       margin-top:40px;
       font-size:14px;
-      color:var(--muted);
+      color:#cbd5e1;
     }
 
-    footer a, .anchorLinks a{
-      color:var(--muted);
+    footer a{
+      color:#cbd5e1;
       text-decoration:none;
       margin:0 10px;
     }
 
-    footer a:hover, .anchorLinks a:hover{
+    footer a:hover{
       color:#fff;
     }
 
-    .anchorLinks{
-      margin-top:28px;
-    }
-
-    .notice{
-      background:rgba(34,197,94,.08);
-      border:1px solid rgba(34,197,94,.25);
-      color:#dcfce7;
-      padding:12px 14px;
-      border-radius:12px;
-      margin-top:14px;
-      font-size:14px;
-    }
-
     @media (max-width: 700px){
-      h1{font-size:32px}
+      h1{font-size:34px}
       .grid3,.twoCol{grid-template-columns:1fr}
-      .resultScore{font-size:52px}
+      .resultScore{font-size:54px}
       .resultStatus{font-size:24px}
       body{padding:14px}
-      .container{padding:24px 16px}
+      .container{padding:18px 12px 28px}
+      .hero{padding:28px 16px}
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <div class="pill">Global AI Career Quiz</div>
-    <h1>AI Job Test</h1>
-    <p class="sub">Will AI replace your job? Take the 30-second test to find out your AI risk score.</p>
+    <section class="hero">
+      <div class="heroBadge">Global AI Career Quiz</div>
+      <h1>AI Job Test</h1>
+      <p>Will AI replace your job? Take the 30-second test to find out your AI risk score.</p>
+
+      <div class="grid3">
+        <div class="miniCard">10 short questions</div>
+        <div class="miniCard">Instant AI risk score</div>
+        <div class="miniCard">Built to be shareable</div>
+      </div>
+    </section>
 
     <div id="game"></div>
 
@@ -336,64 +524,70 @@
       <a href="#contact">Contact</a>
     </div>
 
-    <section class="section" id="safe-jobs">
+    <section class="section safeSection" id="safe-jobs">
       <h3>Top AI-Safe Job Categories</h3>
-      <div class="tagList">
-        <span class="tag">Therapists</span>
-        <span class="tag">Teachers</span>
-        <span class="tag">Product Managers</span>
-        <span class="tag">UX Researchers</span>
-        <span class="tag">Nurses</span>
-        <span class="tag">Consultants</span>
+      <div class="cards">
+        <div class="jobCard safe1">Therapists</div>
+        <div class="jobCard safe2">Teachers</div>
+        <div class="jobCard safe3">Product Managers</div>
+        <div class="jobCard safe4">UX Researchers</div>
+        <div class="jobCard safe5">Nurses</div>
+        <div class="jobCard safe6">Consultants</div>
       </div>
-      <p class="smallMuted">These tend to rely more on empathy, trust, nuance, and complex judgment.</p>
+      <p class="smallMuted" style="color:#334155;">These tend to rely more on empathy, trust, nuance, and complex judgment.</p>
     </section>
 
-    <section class="section" id="risk-jobs">
+    <section class="section riskSection" id="risk-jobs">
       <h3>Higher AI-Risk Job Categories</h3>
-      <div class="tagList">
-        <span class="tag">Data Entry</span>
-        <span class="tag">Routine Admin</span>
-        <span class="tag">Basic Transcription</span>
-        <span class="tag">Simple Support</span>
-        <span class="tag">Repetitive Reporting</span>
-        <span class="tag">Template Content</span>
+      <div class="cards">
+        <div class="jobCard risk1">Data Entry</div>
+        <div class="jobCard risk2">Routine Admin</div>
+        <div class="jobCard risk3">Basic Transcription</div>
+        <div class="jobCard risk4">Simple Support</div>
+        <div class="jobCard risk5">Repetitive Reporting</div>
+        <div class="jobCard risk6">Template Content</div>
       </div>
-      <p class="smallMuted">These often involve repetitive tasks or work that software can automate at scale.</p>
+      <p class="smallMuted" style="color:#334155;">These often involve repetitive tasks or work that software can automate at scale.</p>
     </section>
 
-    <section class="section" id="faq">
+    <section class="section faqSection" id="faq">
       <h3>FAQ</h3>
 
-      <div class="faqItem">
-        <h4>Is this a real prediction?</h4>
-        <p>This is a lightweight directional test. It is meant to help users think about AI exposure, not provide legal, financial, or career guarantees.</p>
-      </div>
+      <details open>
+        <summary>Is this a real prediction?</summary>
+        <div class="faqAnswer">
+          This is a lightweight directional test. It helps users think about AI exposure, not provide legal, financial, or career guarantees.
+        </div>
+      </details>
 
-      <div class="faqItem">
-        <h4>What makes a job more AI-safe?</h4>
-        <p>Human trust, creativity, empathy, negotiation, leadership, and operating in unpredictable environments usually make work harder to automate fully.</p>
-      </div>
+      <details>
+        <summary>What makes a job more AI-safe?</summary>
+        <div class="faqAnswer">
+          Human trust, creativity, empathy, negotiation, leadership, and operating in unpredictable environments usually make work harder to automate fully.
+        </div>
+      </details>
 
-      <div class="faqItem">
-        <h4>Can I use this for teams or hiring discussions?</h4>
-        <p>Yes. Many people use simple AI-risk tools as conversation starters for upskilling, workforce planning, and career transition thinking.</p>
-      </div>
+      <details>
+        <summary>Can I use this for teams or hiring discussions?</summary>
+        <div class="faqAnswer">
+          Yes. Many people use simple AI-risk tools as conversation starters for upskilling, workforce planning, and career transition thinking.
+        </div>
+      </details>
     </section>
 
-    <section class="section" id="about">
+    <section class="section infoSection" id="about">
       <h3>About</h3>
       <p>AI Job Test is a simple online tool that helps people estimate how vulnerable their job may be to automation and artificial intelligence.</p>
       <p>It uses a short set of questions to estimate how much a role depends on human strengths such as empathy, creativity, judgment, and trust.</p>
     </section>
 
-    <section class="section" id="privacy">
+    <section class="section infoSection" id="privacy">
       <h3>Privacy Policy</h3>
       <p>This website uses Google Analytics to understand how visitors interact with the site.</p>
       <p>No personally identifiable information is intentionally collected by the quiz itself. If you enter an email, treat this version as a demo unless you connect a real email service.</p>
     </section>
 
-    <section class="section" id="contact">
+    <section class="section infoSection" id="contact">
       <h3>Contact</h3>
       <p>Questions or feedback: <strong>support@soruvalab.com</strong></p>
     </section>
@@ -454,16 +648,9 @@
 
     function showStart(){
       document.getElementById("game").innerHTML = `
-        <div class="grid3">
-          <div class="miniCard">10 short questions</div>
-          <div class="miniCard">Instant AI risk score</div>
-          <div class="miniCard">Built to be shareable</div>
-        </div>
-
         <h2>What is your job?</h2>
         <input id="job" list="jobList" class="jobInput" placeholder="Example: Accountant" />
         ${renderJobDatalist()}
-
         <div style="margin-top:18px;">
           <button class="start" onclick="start()">Start Test</button>
         </div>
@@ -538,7 +725,7 @@
     function buildRecommendations(){
       if(aiScore >= 80){
         recommendationHtml = `
-          <div class="section" style="margin-top:22px;">
+          <div class="section reportSection" style="margin-top:22px;">
             <h3>What this usually means</h3>
             <p>Your role appears to benefit heavily from human strengths. Focus on leadership, judgment, and higher-value positioning.</p>
             <h3>Recommended next moves</h3>
@@ -551,7 +738,7 @@
         `;
       } else if(aiScore >= 55){
         recommendationHtml = `
-          <div class="section" style="margin-top:22px;">
+          <div class="section reportSection" style="margin-top:22px;">
             <h3>What this usually means</h3>
             <p>Your job has mixed exposure. Some tasks may be automated, but your human strengths still matter.</p>
             <h3>Recommended next moves</h3>
@@ -564,7 +751,7 @@
         `;
       } else {
         recommendationHtml = `
-          <div class="section" style="margin-top:22px;">
+          <div class="section reportSection" style="margin-top:22px;">
             <h3>Higher-priority pivot ideas</h3>
             <ul>
               <li>Product Manager</li>
@@ -618,21 +805,21 @@
         <p class="smallMuted">The higher the score, the more your role seems to depend on human strengths that are harder to automate fully.</p>
 
         <div style="margin-top:12px;">
-          <button class="share" onclick="shareX()">Share on X</button>
-          <button class="share" onclick="shareReddit()">Share on Reddit</button>
-          <button class="share" onclick="copyResult()">Copy Result</button>
+          <button class="shareX" onclick="shareX()">Share on X</button>
+          <button class="shareReddit" onclick="shareReddit()">Share on Reddit</button>
+          <button class="shareCopy" onclick="copyResult()">Copy Result</button>
         </div>
 
         ${recommendationHtml}
 
-        <div class="section" style="margin-top:22px;">
+        <div class="section reportSection" style="margin-top:22px;">
           <h3>Unlock Full AI-Proof Career Report</h3>
           <p>Enter your email to generate a deeper report experience.</p>
           <input id="email" class="email" placeholder="Enter your email" />
           <div>
             <button class="start" onclick="generateReport()">Unlock Full Report</button>
           </div>
-          <div class="smallMuted">This demo generates the report on-page. Connect a real email tool later for production use.</div>
+          <div class="smallMuted" style="color:#64748b;">This demo generates the report on-page. Connect a real email tool later for production use.</div>
         </div>
 
         <div style="margin-top:18px;">
@@ -740,7 +927,7 @@ ${window.location.href}`;
           <div class="resultStatus">${result}</div>
         </div>
 
-        <div class="section">
+        <div class="section reportSection">
           <h3>Career Snapshot for ${escapeHtml(job)}</h3>
           ${premiumSummary}
 
@@ -766,14 +953,13 @@ ${window.location.href}`;
         </div>
 
         <div style="margin-top:18px;">
-          <button class="share" onclick="shareX()">Share on X</button>
-          <button class="share" onclick="copyResult()">Copy Result</button>
+          <button class="shareX" onclick="shareX()">Share on X</button>
+          <button class="shareCopy" onclick="copyResult()">Copy Result</button>
           <button class="secondary" onclick="showStart()">Restart Test</button>
         </div>
       `;
     }
 
-    // Lightweight sanity checks
     (function runChecks(){
       const reversed = (2 - 2) + (2 - 1) + (2 - 0);
       console.assert(reversed === 3, "Reverse scoring check failed");
