@@ -552,3 +552,419 @@ color:white;
 <a href="#contact">Contact</a>
 
 </div>
+
+<section class="section safeSection" id="safe-jobs">
+
+<h3>Top AI-Safe Job Categories</h3>
+
+<div class="cards">
+
+<div class="jobCard">Therapists</div>
+<div class="jobCard">Teachers</div>
+<div class="jobCard">Product Managers</div>
+<div class="jobCard">UX Researchers</div>
+<div class="jobCard">Nurses</div>
+<div class="jobCard">Consultants</div>
+
+</div>
+
+<p>These tend to rely more on empathy, trust, nuance, and complex judgment.</p>
+
+</section>
+
+
+
+<section class="section riskSection" id="risk-jobs">
+
+<h3>Higher AI-Risk Job Categories</h3>
+
+<div class="cards">
+
+<div class="jobCard">Data Entry</div>
+<div class="jobCard">Routine Admin</div>
+<div class="jobCard">Basic Transcription</div>
+<div class="jobCard">Simple Support</div>
+<div class="jobCard">Repetitive Reporting</div>
+<div class="jobCard">Template Content</div>
+
+</div>
+
+<p>These often involve repetitive tasks or work that software can automate at scale.</p>
+
+</section>
+
+<section class="section leaderboardSection" id="leaderboard">
+
+<h3>Popular AI-Safe Roles Today</h3>
+
+<div class="leaderboard">
+
+<div class="jobCard">1 UX Designer — 82%</div>
+<div class="jobCard">2 Product Manager — 79%</div>
+<div class="jobCard">3 Therapist — 77%</div>
+<div class="jobCard">4 Consultant — 74%</div>
+<div class="jobCard">5 Teacher — 73%</div>
+
+</div>
+
+</section>
+
+
+
+<section class="section faqSection" id="faq">
+
+<h3>FAQ</h3>
+
+<details>
+<summary>Is this a real prediction?</summary>
+<div class="faqAnswer">
+This is a lightweight directional test meant to help people think about AI exposure.  
+It is not a guaranteed prediction of future job outcomes.
+</div>
+</details>
+
+<details>
+<summary>What makes a job more AI-safe?</summary>
+<div class="faqAnswer">
+Jobs involving empathy, creativity, human trust, leadership, and complex judgment  
+tend to be harder to automate.
+</div>
+</details>
+
+<details>
+<summary>Can companies use this tool?</summary>
+<div class="faqAnswer">
+Yes. Some teams use tools like this as conversation starters about workforce change,
+skills development, and AI readiness.
+</div>
+</details>
+
+</section>
+
+
+
+<section class="section infoSection" id="about">
+
+<h3>About</h3>
+
+<p>
+AI Job Test is a simple online tool designed to help people think about
+how artificial intelligence may affect different careers.
+</p>
+
+<p>
+The quiz focuses on human skills such as empathy, creativity,
+decision making, and problem solving.
+</p>
+
+</section>
+
+
+
+<section class="section infoSection" id="privacy">
+
+<h3>Privacy Policy</h3>
+
+<p>
+This website uses Google Analytics to understand how visitors interact with the site.
+</p>
+
+<p>
+No personally identifiable information is intentionally collected by the quiz itself.
+</p>
+
+</section>
+
+
+
+<section class="section infoSection" id="contact">
+
+<h3>Contact</h3>
+
+<p>
+Questions or feedback: <b>support@soruvalab.com</b>
+</p>
+
+</section>
+
+
+
+</main>
+
+
+
+<footer>
+
+<p>
+
+<a href="#about">About</a> |
+<a href="#privacy">Privacy</a> |
+<a href="#contact">Contact</a>
+
+</p>
+
+<p>© 2026 AI Job Test</p>
+
+</footer>
+
+
+
+<script>
+
+const questions = [
+
+"Does your job require human empathy?",
+"Do you solve unexpected problems often?",
+"Do you interact with people face-to-face?",
+"Does your work involve creativity?",
+"Do you make complex decisions?",
+"Does your job depend on trust or relationships?",
+"Is your work mostly repetitive?",
+"Could software automate most of your tasks?",
+"Do you regularly learn new skills?",
+"Do you work in unpredictable environments?"
+
+]
+
+let job=""
+let index=0
+let score=0
+let aiScore=0
+let percentile=0
+let result=""
+
+
+
+function getBaseUrl(){
+
+return window.location.origin + "/ai-job-test/"
+
+}
+
+
+
+function showStart(){
+
+document.getElementById("game").innerHTML = `
+
+<h2>What is your job?</h2>
+
+<input id="job" class="jobInput" placeholder="Example: Accountant">
+
+<br><br>
+
+<button class="start" onclick="start()">Start Test</button>
+
+`
+
+}
+
+
+
+function start(){
+
+job=document.getElementById("job").value
+
+if(job===""){
+
+alert("Enter your job first")
+return
+
+}
+
+index=0
+score=0
+
+showQuestion()
+
+}
+
+
+
+function showQuestion(){
+
+if(index>=questions.length){
+
+showResult()
+return
+
+}
+
+document.getElementById("game").innerHTML=`
+
+<h3>Question ${index+1} / ${questions.length}</h3>
+
+<h2>${questions[index]}</h2>
+
+<button class="answer" onclick="answer(this,2)">Yes</button>
+
+<button class="answer" onclick="answer(this,1)">Sometimes</button>
+
+<button class="answer" onclick="answer(this,0)">No</button>
+
+`
+
+}
+
+
+
+function answer(button,value){
+
+button.classList.add("selected")
+
+if(index==6||index==7){
+
+value=2-value
+
+}
+
+score+=value
+
+setTimeout(()=>{
+
+index++
+showQuestion()
+
+},200)
+
+}
+
+
+
+function showResult(){
+
+if(score>=16){result="Very Hard to Replace"}
+else if(score>=11){result="Moderately Safe"}
+else if(score>=6){result="At Risk"}
+else{result="High AI Risk"}
+
+aiScore=Math.round((score/20)*100)
+
+percentile=Math.floor(Math.random()*40)+55
+
+
+
+document.getElementById("game").innerHTML=`
+
+<h2>AI Risk Result for ${job}</h2>
+
+<div class="resultCard">
+
+<div class="resultScore">${aiScore}%</div>
+
+<div class="resultStatus">${result}</div>
+
+<div class="percentile">Better than ${percentile}% of people</div>
+
+</div>
+
+<p style="margin-top:20px;font-weight:600;color:#fef08a;">
+Compare your result with friends 👇
+</p>
+
+<button class="shareX" onclick="shareX()">Share on X</button>
+
+<button class="shareReddit" onclick="shareReddit()">Share on Reddit</button>
+
+<button class="shareCopy" onclick="copyResult()">Copy Result</button>
+
+<br><br>
+
+<button class="secondary" onclick="showStart()">Try Again</button>
+
+`
+
+}
+
+
+
+function shareX(){
+
+const text=`I tested my job against AI.
+
+My AI risk score was ${aiScore}%.
+
+Better than ${percentile}% of people.
+
+Try it yourself:`
+
+
+const url=getBaseUrl()
+
+window.open(
+
+`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+
+)
+
+}
+
+
+
+function shareReddit(){
+
+const url=getBaseUrl()
+
+const title=`I tested my job against AI — my score was ${aiScore}%`
+
+window.open(
+
+`https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`
+
+)
+
+}
+
+
+
+function copyResult(){
+
+const text=`I tested my job against AI.
+
+My AI risk score was ${aiScore}%.
+
+Better than ${percentile}% of people.
+
+Try it yourself:
+${getBaseUrl()}`
+
+navigator.clipboard.writeText(text)
+
+alert("Copied! Share on X or Reddit 🚀")
+
+}
+
+
+
+/* FAQ accordion */
+
+document.querySelectorAll("#faq details").forEach((detail)=>{
+
+detail.addEventListener("toggle",function(){
+
+if(this.open){
+
+document.querySelectorAll("#faq details").forEach((other)=>{
+
+if(other!==this){
+
+other.open=false
+
+}
+
+})
+
+}
+
+})
+
+})
+
+
+
+showStart()
+
+</script>
+
+</body>
+</html>  
