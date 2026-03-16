@@ -684,7 +684,7 @@ Questions or feedback: <b>support@soruvalab.com</b>
 
 </footer>
 
-
+  
 <script>
 
 const questions = [
@@ -924,6 +924,39 @@ if(o!==this){o.open=false}
 })
 
 showStart()
+
+function downloadCard(){
+
+const canvas = document.createElement("canvas")
+canvas.width = 800
+canvas.height = 420
+
+const ctx = canvas.getContext("2d")
+
+ctx.fillStyle="#0f172a"
+ctx.fillRect(0,0,800,420)
+
+ctx.fillStyle="#ffffff"
+ctx.font="bold 42px Arial"
+ctx.fillText("AI Job Test",40,80)
+
+ctx.font="bold 120px Arial"
+ctx.fillStyle="#67e8f9"
+ctx.fillText(aiScore+"%",40,220)
+
+ctx.font="bold 36px Arial"
+ctx.fillStyle="#ffffff"
+ctx.fillText(result,40,300)
+
+ctx.font="24px Arial"
+ctx.fillText("ai-job-test",40,360)
+
+const link=document.createElement("a")
+link.download="ai-risk-score.png"
+link.href=canvas.toDataURL()
+link.click()
+
+}  
 
 </script>
 
