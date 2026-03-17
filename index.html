@@ -542,3 +542,596 @@
     }
   </style>
 </head>
+
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-badge">Global AI Career Quiz</div>
+      <h1>AI Job Test</h1>
+      <p>
+        Will AI replace your job?
+        Take the 30-second test to find out your AI risk score.
+      </p>
+
+      <div class="live-stats">
+        <div class="stat-card">🌍 <span id="globalUsers">12,842</span> people tested their jobs</div>
+        <div class="stat-card">⚡ <span id="todayUsers">342</span> tests today</div>
+        <div class="stat-card">🔥 Trending globally</div>
+        <div class="stat-card">📈 High share potential</div>
+      </div>
+    </section>
+
+    <div id="game" class="quiz-shell"></div>
+
+    <div class="nav-links">
+      <a href="#safe-jobs">AI Safe Jobs</a>
+      <a href="#risk-jobs">AI Risk Jobs</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#faq">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <section class="section safe-section" id="safe-jobs">
+      <h3>Top AI-Safe Job Categories</h3>
+      <div class="cards">
+        <div class="job-card">Therapists</div>
+        <div class="job-card">Teachers</div>
+        <div class="job-card">Product Managers</div>
+        <div class="job-card">UX Researchers</div>
+        <div class="job-card">Nurses</div>
+        <div class="job-card">Consultants</div>
+      </div>
+      <p>These roles rely more on empathy, trust, creativity and complex judgment.</p>
+    </section>
+
+    <section class="section risk-section" id="risk-jobs">
+      <h3>Higher AI-Risk Job Categories</h3>
+      <div class="cards">
+        <div class="job-card">Data Entry</div>
+        <div class="job-card">Routine Admin</div>
+        <div class="job-card">Basic Transcription</div>
+        <div class="job-card">Simple Support</div>
+        <div class="job-card">Repetitive Reporting</div>
+        <div class="job-card">Template Content</div>
+      </div>
+      <p>These tasks often involve repetition that software can automate.</p>
+    </section>
+
+    <section class="section leader-section" id="leaderboard">
+      <h3>Most Tested Jobs Today</h3>
+      <div class="leaderboard-list">
+        <div class="leaderboard-item"><span>1. Software Engineer</span><span>82%</span></div>
+        <div class="leaderboard-item"><span>2. Marketing Manager</span><span>79%</span></div>
+        <div class="leaderboard-item"><span>3. Teacher</span><span>73%</span></div>
+        <div class="leaderboard-item"><span>4. Designer</span><span>71%</span></div>
+        <div class="leaderboard-item"><span>5. Consultant</span><span>69%</span></div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+      <h3>FAQ</h3>
+
+      <details>
+        <summary>Is this a real prediction?</summary>
+        <div class="faq-answer">
+          This test gives a directional estimate about AI exposure.
+          It is meant for discussion and exploration rather than exact prediction.
+        </div>
+      </details>
+
+      <details>
+        <summary>What makes a job more AI-safe?</summary>
+        <div class="faq-answer">
+          Jobs requiring empathy, leadership, creativity, negotiation and strategic thinking tend to be harder for AI to automate fully.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can companies use this tool?</summary>
+        <div class="faq-answer">
+          Yes. Many teams use AI-risk quizzes to start conversations about reskilling and future workforce planning.
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      <a href="about.html">About</a> |
+      <a href="privacy.html">Privacy</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>© 2026 AI Job Test</p>
+  </footer>
+
+  <script>
+    const questions = [
+      "Does your job require human empathy?",
+      "Do you solve unexpected problems often?",
+      "Do you interact with people face-to-face?",
+      "Does your work involve creativity?",
+      "Do you make complex decisions?",
+      "Does your job depend on trust or relationships?",
+      "Is your work mostly repetitive?",
+      "Could software automate most of your tasks?",
+      "Do you regularly learn new skills?",
+      "Do you work in unpredictable environments?"
+    ];
+
+    const jobRiskMap = {
+      "software engineer": 45,
+      "teacher": 28,
+      "designer": 41,
+      "accountant": 62,
+      "lawyer": 38,
+      "marketing manager": 39,
+      "consultant": 36,
+      "nurse": 24,
+      "product manager": 31,
+      "ux designer": 35,
+      "data analyst": 48,
+      "customer support": 67
+    };
+
+    const paidCheckoutUrl = "#";
+
+    let job = "";
+    let index = 0;
+    let score = 0;
+    let aiScore = 0;
+    let percentile = 0;
+    let result = "";
+
+    function getBaseUrl(){
+      return window.location.origin + "/ai-job-test/";
+    }
+
+    function safeText(value){
+      return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function normalizeJob(value){
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function getResultLabelFromScore(scoreValue){
+      if(scoreValue >= 80) return "Very Hard to Replace";
+      if(scoreValue >= 60) return "Moderately Safe";
+      if(scoreValue >= 40) return "At Risk";
+      return "High AI Risk";
+    }
+
+    function getViralText(){
+      if(aiScore >= 80) return "AI can't replace me (apparently)";
+      if(aiScore >= 60) return "I'm safer than most jobs";
+      if(aiScore >= 40) return "AI might replace me...";
+      return "AI is coming for my job 😭";
+    }
+
+    function getReasons(){
+      if(aiScore < 40){
+        return [
+          "Your work is highly repetitive",
+          "Most tasks can be automated by software",
+          "AI already performs similar tasks"
+        ];
+      }
+      if(aiScore < 70){
+        return [
+          "Some tasks can be automated",
+          "Your role mixes human and system work",
+          "AI is already entering similar roles"
+        ];
+      }
+      return [
+        "Your work depends on human judgment",
+        "Creativity and trust are important",
+        "Your role is harder to fully automate"
+      ];
+    }
+
+    function getResultURL(){
+      const params = new URLSearchParams();
+      params.set("job", job);
+      params.set("score", aiScore);
+      return `${getBaseUrl()}?${params.toString()}`;
+    }
+
+    function saveEmailLocally(email){
+      const saved = JSON.parse(localStorage.getItem("aiJobTestEmails") || "[]");
+      if(!saved.includes(email)){
+        saved.push(email);
+        localStorage.setItem("aiJobTestEmails", JSON.stringify(saved));
+      }
+    }
+
+    function showStart(){
+      const game = document.getElementById("game");
+      if(!game) return;
+
+      game.innerHTML = `
+        <h2>What is your job?</h2>
+
+        <input id="job" list="jobs" class="job-input" placeholder="Example: Software Engineer" />
+
+        <datalist id="jobs">
+          <option>Software Engineer</option>
+          <option>Teacher</option>
+          <option>Designer</option>
+          <option>Marketing Manager</option>
+          <option>Consultant</option>
+          <option>Nurse</option>
+          <option>Product Manager</option>
+          <option>Accountant</option>
+          <option>Lawyer</option>
+          <option>UX Designer</option>
+          <option>Data Analyst</option>
+          <option>Customer Support</option>
+        </datalist>
+
+        <br><br>
+
+        <button class="btn-primary" onclick="startTest()">Start Test</button>
+      `;
+
+      const jobInput = document.getElementById("job");
+      if(jobInput){
+        jobInput.addEventListener("keypress", function(e){
+          if(e.key === "Enter"){
+            startTest();
+          }
+        });
+      }
+    }
+
+    function startTest(){
+      const jobInput = document.getElementById("job");
+      job = jobInput ? jobInput.value.trim() : "";
+
+      if(job === ""){
+        alert("Please enter your job.");
+        return;
+      }
+
+      index = 0;
+      score = 0;
+
+      if(typeof gtag === "function"){
+        gtag("event", "start_test", { job_category: job });
+      }
+
+      showQuestion();
+    }
+
+    function showQuestion(){
+      const game = document.getElementById("game");
+      if(!game) return;
+
+      if(index >= questions.length){
+        showResult();
+        return;
+      }
+
+      const progress = Math.round((index / questions.length) * 100);
+
+      game.innerHTML = `
+        <div class="progress-wrap">
+          <div class="progress-label">Question ${index + 1} / ${questions.length}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${progress}%"></div>
+          </div>
+        </div>
+
+        <h2>${questions[index]}</h2>
+
+        <button class="answer" onclick="answerQuestion(this,2)">Yes</button>
+        <button class="answer" onclick="answerQuestion(this,1)">Sometimes</button>
+        <button class="answer" onclick="answerQuestion(this,0)">No</button>
+      `;
+    }
+
+    function answerQuestion(button, value){
+      if(navigator.vibrate){
+        navigator.vibrate(15);
+      }
+
+      button.classList.add("selected");
+
+      if(index === 6 || index === 7){
+        value = 2 - value;
+      }
+
+      score += value;
+
+      setTimeout(() => {
+        index++;
+        showQuestion();
+      }, 200);
+    }
+
+    function showResult(){
+      aiScore = Math.round((score / 20) * 100);
+      percentile = Math.floor(Math.random() * 40) + 55;
+      result = getResultLabelFromScore(aiScore);
+
+      if(typeof gtag === "function"){
+        gtag("event", "view_result", {
+          ai_score: aiScore,
+          result_label: result,
+          job_category: job
+        });
+      }
+
+      const reasonsHtml = getReasons().map(item => `<li>${item}</li>`).join("");
+
+      const game = document.getElementById("game");
+      if(!game) return;
+
+      game.innerHTML = `
+        <div class="alert-bar">🔥 AI disruption is accelerating globally</div>
+
+        <h2>AI Risk Result for ${safeText(job)}</h2>
+
+        <div class="result-card">
+          <div class="result-label">AI Risk Score</div>
+          <div class="result-score" id="animatedScore">0%</div>
+          <div class="result-status">${result}</div>
+          <div class="percentile">Better than ${percentile}% of people</div>
+        </div>
+
+        <p class="scarcity">Only 3% of people score above 80%.</p>
+        <p class="supporting-line">Global average AI risk: 58%</p>
+
+        <div class="reason-box">
+          <p><strong>Why this score:</strong></p>
+          <ul>${reasonsHtml}</ul>
+        </div>
+
+        <p style="color:#fca5a5;font-weight:bold;margin-top:18px;">
+          Your job is changing faster than most people realize.
+        </p>
+
+        <p class="cta-title">
+          AI will not replace jobs.<br>
+          It will replace people who don't adapt.
+        </p>
+
+        <p class="small-note" style="margin-top:18px;">
+          Enter your email to unlock your personalized AI roadmap
+        </p>
+
+        <input id="emailInput" class="email-input" placeholder="Enter your email" />
+
+        <br><br>
+
+        <button class="btn-primary" onclick="showPreview()">
+          Get My Personalized AI Survival Plan
+        </button>
+
+        <div class="share-row">
+          <button class="btn-x" onclick="shareX()">Share on X</button>
+          <button class="btn-reddit" onclick="shareReddit()">Share on Reddit</button>
+          <button class="btn-copy" onclick="copyResult()">Copy Result</button>
+          <button class="btn-primary" onclick="downloadShareCard()">Download Share Card</button>
+        </div>
+
+        <div class="share-stats">
+          🔥 <span id="shareCount">4,281</span> people shared their score
+        </div>
+
+        <p class="share-url mono-url">${safeText(getResultURL())}</p>
+
+        ${buildComparisonSection()}
+        ${buildCareerTipsSection()}
+
+        <br>
+
+        <button class="btn-secondary" onclick="tryAnotherJob()">Test Another Job</button>
+      `;
+
+      animateScore(aiScore);
+    }
+
+    function showPreview(){
+      const emailField = document.getElementById("emailInput");
+      const email = emailField ? emailField.value.trim() : "";
+
+      if(email === ""){
+        alert("Please enter your email.");
+        return;
+      }
+
+      saveEmailLocally(email);
+
+      if(typeof gtag === "function"){
+        gtag("event", "preview_opened", {
+          email_entered: true,
+          ai_score: aiScore,
+          result_label: result
+        });
+      }
+
+      const game = document.getElementById("game");
+      if(!game) return;
+
+      game.innerHTML = `
+        <h2>Your AI Survival Plan</h2>
+
+        <p style="font-weight:bold;">
+          Based on your score (${aiScore}%)
+        </p>
+
+        <p style="color:#fde047;font-weight:bold;">
+          Preview of your full report:
+        </p>
+
+        <div class="preview-box">
+          <ul>
+            <li>Top skill to learn: AI tools and automation literacy</li>
+            <li>Suggested path: Hybrid human + AI role design</li>
+            <li>Risk timeline: 2–5 years depending on adaptation speed</li>
+            <li>Next move: Shift toward strategic or trust-based work</li>
+          </ul>
+        </div>
+
+        <p style="color:#fca5a5;font-weight:bold;margin-top:18px;">
+          Your job is changing faster than most people realize.
+        </p>
+
+        <p class="small-note">
+          Full report includes your deeper risk breakdown, safer role options, and learning roadmap.
+        </p>
+
+        <br>
+
+        <button class="btn-primary" onclick="unlockFullReport()">
+          Unlock Full Report ($5)
+        </button>
+
+        <br><br>
+
+        <button class="btn-secondary" onclick="showResult()">Back to Result</button>
+      `;
+    }
+
+    function unlockFullReport(){
+      if(typeof gtag === "function"){
+        gtag("event", "unlock_full_click", {
+          ai_score: aiScore,
+          result_label: result
+        });
+      }
+
+      if(paidCheckoutUrl && paidCheckoutUrl !== "#"){
+        window.location.href = paidCheckoutUrl;
+        return;
+      }
+
+      alert("Connect your Stripe checkout link here.");
+    }
+
+    function buildComparisonSection(){
+      const normalized = normalizeJob(job);
+      const currentKnownScore = jobRiskMap[normalized];
+      const currentDisplay = typeof currentKnownScore === "number" ? currentKnownScore : aiScore;
+
+      return `
+        <div class="section dark-info-section" style="margin-top:22px;">
+          <h3>Compare your job with others</h3>
+          <div class="cards">
+            <div class="job-card">${safeText(job)} — ${currentDisplay}%</div>
+            <div class="job-card">Teacher — 28%</div>
+            <div class="job-card">Designer — 41%</div>
+            <div class="job-card">Software Engineer — 45%</div>
+            <div class="job-card">Accountant — 62%</div>
+            <div class="job-card">Lawyer — 38%</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function buildCareerTipsSection(){
+      return `
+        <div class="section dark-info-section" style="margin-top:22px;">
+          <h3>People with your score are learning</h3>
+          <ul>
+            <li>AI tool workflows</li>
+            <li>Data analysis fundamentals</li>
+            <li>Communication and strategic thinking</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function animateScore(targetScore){
+      const scoreEl = document.getElementById("animatedScore");
+      if(!scoreEl) return;
+
+      let current = 0;
+      const step = Math.max(1, Math.ceil(targetScore / 40));
+
+      const timer = setInterval(() => {
+        current += step;
+        if(current >= targetScore){
+          current = targetScore;
+          clearInterval(timer);
+        }
+        scoreEl.textContent = `${current}%`;
+      }, 16);
+    }
+
+    function shareX(){
+      const text = `My AI risk score: ${aiScore}%
+
+This surprised me.
+
+Check yours:`;
+
+      const url = getResultURL();
+      const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+
+      const win = window.open(shareUrl, "_blank", "noopener,noreferrer");
+      if(!win){
+        window.location.href = shareUrl;
+      }
+
+      if(typeof gtag === "function"){
+        gtag("event", "share_x", {
+          ai_score: aiScore,
+          result_label: result
+        });
+      }
+    }
+
+    function shareReddit(){
+      const url = getResultURL();
+      const title = `I tested my job against AI — my score was ${aiScore}%`;
+      const shareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+
+      const win = window.open(shareUrl, "_blank", "noopener,noreferrer");
+      if(!win){
+        window.location.href = shareUrl;
+      }
+
+      if(typeof gtag === "function"){
+        gtag("event", "share_reddit", {
+          ai_score: aiScore,
+          result_label: result
+        });
+      }
+    }
+
+    function copyResult(){
+      const text = `${getViralText()}
+
+My AI risk score was ${aiScore}%.
+
+Better than ${percentile}% of people.
+
+Try it yourself:
+${getResultURL()}`;
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("Copied!");
+        })
+        .catch(() => {
+          alert("Copy failed. Please copy manually.");
+        });
+
+      if(typeof gtag === "function"){
+        gtag("event", "copy_result", {
+          ai_score: aiScore,
+          result_label: result
+        });
+      }
+    }
+  
+  
