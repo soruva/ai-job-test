@@ -495,11 +495,11 @@
     .reason-box,
     .preview-box{
       background:#0f172a;
-      padding:20px 24px;
+      padding:20px 28px;
       border-radius:14px;
-      margin:14px auto 0;
+      margin:20px auto;
       text-align:left;
-      max-width:520px;
+      max-width:560px;
     }
 
     .small-note{
@@ -945,7 +945,9 @@
           <ul>${reasonsHtml}</ul>
         </div>
 
-        <p style="color:#fca5a5;font-weight:bold;margin-top:18px;">
+        <div class="result-message">
+
+        <p style="color:#fca5a5;font-weight:bold;">
           Your job is changing faster than most people realize.<br>
           Most people won't adapt in time.
         </p>
@@ -955,7 +957,7 @@
           It will replace people who don't adapt.
         </p>
 
-        <p class="small-note" style="margin-top:18px;">
+        <p class="small-note">
           Enter your email to unlock your personalized AI roadmap
         </p>
 
@@ -966,6 +968,8 @@
         <button class="btn-primary" onclick="showPreview()">
           Get My Personalized AI Survival Plan
         </button>
+
+        </div>
 
         <div class="share-row">
           <button class="btn-x" onclick="shareX()">Share on X</button>
