@@ -384,3 +384,348 @@
     }
 
     .safeSection{
+
+background:linear-gradient(135deg,var(--safe1),var(--safe2));
+    }
+
+    .riskSection{
+      background:linear-gradient(135deg,var(--risk1),var(--risk2));
+    }
+
+    .leaderboardSection{
+      background:linear-gradient(135deg,var(--leader1),var(--leader2));
+    }
+
+    .faqSection{
+      background:var(--faq);
+    }
+
+    .inlineInfoSection{
+      background:linear-gradient(135deg,#1e3a8a,#312e81);
+      color:white;
+    }
+
+    .inlineInfoSection h3{
+      color:white;
+    }
+
+    .inlineInfoSection p,
+    .inlineInfoSection li{
+      color:#e2e8f0;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .jobCard{
+      background:rgba(255,255,255,0.12);
+      color:white;
+      border:1px solid rgba(255,255,255,0.2);
+      backdrop-filter:blur(6px);
+      padding:14px;
+      border-radius:14px;
+      text-align:center;
+      font-weight:700;
+      box-shadow:0 4px 12px rgba(0,0,0,.06);
+    }
+
+    .leaderboardList{
+      display:grid;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .leaderboardItem{
+      background:white;
+      border-radius:14px;
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight:700;
+      box-shadow:0 4px 12px rgba(0,0,0,.06);
+    }
+
+    details{
+      background:white;
+      border-radius:14px;
+      padding:16px;
+      border:2px solid #cbd5e1;
+      margin-bottom:12px;
+    }
+
+    summary{
+      font-weight:700;
+      cursor:pointer;
+      list-style:none;
+    }
+
+    summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .faqAnswer{
+      margin-top:10px;
+      color:#334155;
+      line-height:1.6;
+    }
+
+    ul{
+      margin:10px 0 0 20px;
+      padding:0;
+      line-height:1.7;
+    }
+
+    footer{
+      margin-top:40px;
+      font-size:14px;
+      color:#cbd5e1;
+    }
+
+    footer a{
+      color:#cbd5e1;
+      text-decoration:none;
+      margin:0 8px;
+    }
+
+    footer a:hover{
+      color:white;
+    }
+
+    @media (max-width:760px){
+      body{padding:14px}
+      .container{padding:18px}
+      h1{font-size:36px}
+      .hero{padding:30px 16px}
+      .liveStats{grid-template-columns:1fr}
+      .answer{width:100%}
+      .jobInput,.emailInput{width:100%}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .resultScore{font-size:58px}
+      .resultStatus{font-size:24px}
+      .leaderboardItem{font-size:14px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <section class="hero">
+      <div class="heroBadge">Global AI Career Quiz</div>
+      <h1>AI Job Test</h1>
+      <p>
+        Will AI replace your job?
+        Take the 30-second test to find out your AI risk score.
+      </p>
+
+      <div class="liveStats">
+        <div class="statCard">🌍 <span id="globalUsers">12,842</span> people tested their jobs</div>
+        <div class="statCard">⚡ <span id="todayUsers">342</span> tests today</div>
+        <div class="statCard">🔥 Trending globally</div>
+      </div>
+    </section>
+
+    <div id="game"></div>
+
+    <div class="anchorLinks">
+      <a href="#safe-jobs">AI Safe Jobs</a>
+      <a href="#risk-jobs">AI Risk Jobs</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#faq">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <section class="section safeSection" id="safe-jobs">
+      <h3>Top AI-Safe Job Categories</h3>
+      <div class="cards">
+        <div class="jobCard">Therapists</div>
+        <div class="jobCard">Teachers</div>
+        <div class="jobCard">Product Managers</div>
+        <div class="jobCard">UX Researchers</div>
+        <div class="jobCard">Nurses</div>
+        <div class="jobCard">Consultants</div>
+      </div>
+      <p>These roles rely more on empathy, trust, creativity and complex judgment.</p>
+    </section>
+
+    <section class="section riskSection" id="risk-jobs">
+      <h3>Higher AI-Risk Job Categories</h3>
+      <div class="cards">
+        <div class="jobCard">Data Entry</div>
+        <div class="jobCard">Routine Admin</div>
+        <div class="jobCard">Basic Transcription</div>
+        <div class="jobCard">Simple Support</div>
+        <div class="jobCard">Repetitive Reporting</div>
+        <div class="jobCard">Template Content</div>
+      </div>
+      <p>These tasks often involve repetition that software can automate.</p>
+    </section>
+
+    <section class="section leaderboardSection" id="leaderboard">
+      <h3>Most Tested Jobs Today</h3>
+      <div class="leaderboardList">
+        <div class="leaderboardItem"><span>1. Software Engineer</span><span>82%</span></div>
+        <div class="leaderboardItem"><span>2. Marketing Manager</span><span>79%</span></div>
+        <div class="leaderboardItem"><span>3. Teacher</span><span>73%</span></div>
+        <div class="leaderboardItem"><span>4. Designer</span><span>71%</span></div>
+        <div class="leaderboardItem"><span>5. Consultant</span><span>69%</span></div>
+      </div>
+    </section>
+
+    <section class="section faqSection" id="faq">
+      <h3>FAQ</h3>
+
+      <details>
+        <summary>Is this a real prediction?</summary>
+        <div class="faqAnswer">
+          This test gives a directional estimate about AI exposure.
+          It is meant for discussion and exploration rather than exact prediction.
+        </div>
+      </details>
+
+      <details>
+        <summary>What makes a job more AI-safe?</summary>
+        <div class="faqAnswer">
+          Jobs requiring empathy, leadership, creativity, negotiation and strategic thinking tend to be harder for AI to automate fully.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can companies use this tool?</summary>
+        <div class="faqAnswer">
+          Yes. Many teams use AI-risk quizzes to start conversations about reskilling and future workforce planning.
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      <a href="about.html">About</a> |
+      <a href="privacy.html">Privacy</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>© 2026 AI Job Test</p>
+  </footer>
+
+  <script>
+    const questions = [
+      "Does your job require human empathy?",
+      "Do you solve unexpected problems often?",
+      "Do you interact with people face-to-face?",
+      "Does your work involve creativity?",
+      "Do you make complex decisions?",
+      "Does your job depend on trust or relationships?",
+      "Is your work mostly repetitive?",
+      "Could software automate most of your tasks?",
+      "Do you regularly learn new skills?",
+      "Do you work in unpredictable environments?"
+    ];
+
+    const jobRiskMap = {
+      "software engineer": 45,
+      "teacher": 28,
+      "designer": 41,
+      "accountant": 62,
+      "lawyer": 38,
+      "marketing manager": 39,
+      "consultant": 36,
+      "nurse": 24,
+      "product manager": 31,
+      "ux designer": 35,
+      "data analyst": 48,
+      "customer support": 67
+    };
+
+    let job = "";
+    let index = 0;
+    let score = 0;
+    let aiScore = 0;
+    let percentile = 0;
+    let result = "";
+
+    function getBaseUrl(){
+      return window.location.origin + "/ai-job-test/";
+    }
+
+    function safeText(value){
+      return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function normalizeJob(value){
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function getResultLabelFromScore(scoreValue){
+      if(scoreValue >= 80) return "Very Hard to Replace";
+      if(scoreValue >= 55) return "Moderately Safe";
+      if(scoreValue >= 30) return "At Risk";
+      return "High AI Risk";
+    }
+
+    function getViralText(){
+      if(aiScore >= 80) return "AI can't replace me (apparently)";
+      if(aiScore >= 60) return "I'm safer than most jobs";
+      if(aiScore >= 40) return "AI might replace me...";
+      return "AI is coming for my job 😭";
+    }
+
+    function getJobRiskComparisonHTML(){
+      const normalized = normalizeJob(job);
+      const currentKnownScore = jobRiskMap[normalized];
+      const currentDisplay = typeof currentKnownScore === "number" ? currentKnownScore : aiScore;
+
+      return `
+        <div class="section inlineInfoSection" style="margin-top:22px;">
+          <h3>Compare your job with others</h3>
+          <div class="cards">
+            <div class="jobCard">${safeText(job)} — ${currentDisplay}%</div>
+            <div class="jobCard">Teacher — 28%</div>
+            <div class="jobCard">Designer — 41%</div>
+            <div class="jobCard">Software Engineer — 45%</div>
+            <div class="jobCard">Accountant — 62%</div>
+            <div class="jobCard">Lawyer — 38%</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getCareerTipsHTML(){
+      return `
+        <div class="section inlineInfoSection" style="margin-top:22px;">
+          <h3>AI-Proof Career Tips</h3>
+          <ul>
+            <li>Focus on human skills like empathy, leadership, and trust.</li>
+            <li>Learn to collaborate with AI tools instead of avoiding them.</li>
+            <li>Build creative and strategic thinking into your daily work.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function getReportCTAHTML(){
+      return `
+        <div class="section inlineInfoSection" style="margin-top:22px;">
+          <h3>Send me my AI career report</h3>
+          <p>Get a deeper AI career breakdown, skill roadmap, and next-step ideas.</p>
+          <input id="emailInput" class="emailInput" placeholder="Enter your email" />
+          <br><br>
+          <button class="start" onclick="sendCareerReport()">Send Report</button>
+        </div>
+      `;
+    }      
+      
+    
