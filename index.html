@@ -1104,7 +1104,7 @@
     function buildCareerTipsSection(){
       return `
         <div class="section dark-info-section" style="margin-top:22px;">
-          <h3>People with your score are learning</h3>
+          <h3>People in similar positions are learning</h3>
 
           <div class="learning-box">
             <ul>
@@ -1220,7 +1220,7 @@ ${getResultURL()}`;
 
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 42px Arial";
-      ctx.fillText("AI Job Test", 50, 80);
+      ctx.fillText("AI Positioning", 50, 80);
 
       ctx.font = "bold 32px Arial";
       ctx.fillText(job, 50, 140);
@@ -1238,7 +1238,7 @@ ${getResultURL()}`;
 
       ctx.fillStyle = "#cbd5e1";
       ctx.font = "24px Arial";
-      ctx.fillText("AI Risk Analysis", 620, 120);
+      ctx.fillText("AI Position Analysis", 620, 120);
       ctx.fillText("• Automation exposure", 620, 180);
       ctx.fillText("• Future job stability", 620, 220);
       ctx.fillText("• Skill adaptation need", 620, 260);
@@ -1252,7 +1252,7 @@ ${getResultURL()}`;
       ctx.fillText("soruva.github.io/ai-job-test/", 620, 380);
 
       const link = document.createElement("a");
-      link.download = "ai-risk-score.png";
+      link.download = "ai-position-score.png";
       link.href = canvas.toDataURL();
       link.click();
 
