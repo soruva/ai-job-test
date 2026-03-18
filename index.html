@@ -1088,9 +1088,9 @@
 
       return `
         <div class="section dark-info-section" style="margin-top:22px;">
-          <h3>Compare your job with others</h3>
+          <h3>Compare positions in the AI economy</h3>
           <div class="cards">
-            <div class="job-card">${safeText(job)} ・ ${currentDisplay}%</div>
+            <div class="job-card">${safeText(job)} - ${currentDisplay}%</div>
             <div class="job-card">Teacher ・ 28%</div>
             <div class="job-card">Designer ・ 41%</div>
             <div class="job-card">Software Engineer ・ 45%</div>
@@ -1182,7 +1182,7 @@
     function copyResult(){
       const text = `${getViralText()}
 
-My AI risk score was ${aiScore}%.
+My position in the AI economy is ${aiScore}%.
 
 Better than ${percentile}% of people.
 
