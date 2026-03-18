@@ -767,24 +767,24 @@
     function getReasons(){
       if(aiScore < 40){
         return [
-          "Your work is highly repetitive",
-          "Most tasks can be automated by software",
-          "AI already performs similar tasks"
+          "Your current role relies on repeatable patterns",
+          "AI systems can already replicate parts of this work",
+          "Your position may require strategic repositioning"
         ];
       }
       if(aiScore < 70){
         return [
-          "Some tasks can be automated",
-          "Your role mixes human and system work",
-          "AI is already entering similar roles"
+          "Your role combines human and system-driven work",
+          "Some areas are already being augmented by AI",
+          "Positioning shift can significantly increase your leverage"
         ];
       }
-      return [
-        "Your work depends on human judgment",
-        "Creativity and trust are important",
-        "Your role is harder to fully automate"
-      ];
-    }
+        return [
+          "Your role depends on human judgment and trust",
+          "You operate in areas where AI has limits",
+          "Your positioning creates strong long-term leverage"
+        ];
+      }
 
     function getResultURL(){
       const params = new URLSearchParams();
