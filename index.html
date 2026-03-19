@@ -1412,6 +1412,18 @@ ${getResultURL()}`;
       initFAQAccordion();
       initLiveCounters();
 
+      document.addEventListener("click", function(e){
+        const faq = document.getElementById("faq");
+
+        if(!faq) return;
+
+        if(!faq.contains(e.target)){
+          document.querySelectorAll("#faq details").forEach(d => {
+            d.open = false;
+          });
+        }
+      });
+
       if(!showSharedResultFromURL()){
         showStart();
       }
