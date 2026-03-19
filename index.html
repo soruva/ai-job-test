@@ -1370,20 +1370,6 @@ ${getResultURL()}`;
       return true;
     }
 
-    function initFAQAccordion(){
-      document.querySelectorAll("#faq details").forEach(detail => {
-        detail.addEventListener("toggle", function(){
-          if(this.open){
-            document.querySelectorAll("#faq details").forEach(other => {
-              if(other !== this){
-                other.open = false;
-              }
-            });
-          }
-        });
-      });
-    }
-
     function initLiveCounters(){
       let users = 12842;
       let today = 342;
