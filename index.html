@@ -1130,7 +1130,7 @@
           </div>
 
           ${roles
-            .filter(r => r.name.toLowerCase() !== normalized)
+            .filter(r => normalizeRole(r.name) !== normalized)
             .map(r => `
               <div class="role-card">
                 <span>${r.name} - ${r.score}%</span>
