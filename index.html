@@ -1087,16 +1087,17 @@
 
         <button class="btn-secondary" onclick="showResult()">Back to Result</button>
       `;
-    setTimeout(() => {
-      const btn = document.getElementById("unlockBtn");
+    　setTimeout(() => {
+        const btn = document.getElementById("unlockBtn");
 
-      if(btn){
-        btn.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-      }
-    }, 50);
+        if(btn){
+          btn.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
+      }, 50);
+    }
 
     function unlockFullReport(){
       if(typeof gtag === "function"){
