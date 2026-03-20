@@ -1041,81 +1041,77 @@
   const game = document.getElementById("game");
   if(!game) return;
 
-  game.innerHTML = `
-    <h2>Your AI Positioning Report</h2>
+  game.insertAdjacentHTML("beforeend", `
+    <div style="margin-top:40px;">
+      <h2>Your AI Positioning Report</h2>
 
-    <div class="preview-box">
+      <div class="preview-box">
 
-      <p><strong>Your Position Score:</strong> ${aiScore}% (${result})</p>
+        <p><strong>Your Position Score:</strong> ${aiScore}% (${result})</p>
 
-      <hr>
+        <hr>
 
-      <h3>1. Your Risk Timeline</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "High disruption risk within 1–2 years."
-            : aiScore < 70
-            ? "Moderate shift expected within 2–4 years."
-            : "Low disruption risk. Strong position for 3–5+ years."
-        }
+        <h3>1. Your Risk Timeline</h3>
+        <p>
+          ${
+            aiScore < 40
+              ? "High disruption risk within 1–2 years."
+              : aiScore < 70
+              ? "Moderate shift expected within 2–4 years."
+              : "Low disruption risk. Strong position for 3–5+ years."
+          }
+        </p>
+
+        <h3>2. What This Means</h3>
+        <p>
+          ${
+            aiScore < 40
+              ? "Your role is highly exposed to automation."
+              : aiScore < 70
+              ? "Your role is evolving."
+              : "Your role has strong human leverage."
+          }
+        </p>
+
+        <h3>3. Your Next Moves</h3>
+        <ul>
+          <li>Leverage AI to scale your output</li>
+          <li>Strengthen leadership and influence</li>
+          <li><strong>Unlock full report to see all steps →</strong></li>
+        </ul>
+
+        <h3>4. Skills to Focus On</h3>
+        <ul>
+          <li>Leadership</li>
+          <li>Strategy</li>
+          <li><strong>+ personalized skill roadmap</strong></li>
+        </ul>
+
+      </div>
+
+      <p style="color:#fde047;font-weight:bold;margin-top:18px;">
+        Your score shows where you are.<br>
+        This report shows what to do next.
       </p>
 
-      <h3>2. What This Means</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "Your role is highly exposed to automation."
-            : aiScore < 70
-            ? "Your role is evolving."
-            : "Your role has strong human leverage."
-        }
-      </p>
+      <br>
 
-      <h3>3. Your Next Moves</h3>
-      <ul>
-        <li>Leverage AI to scale your output</li>
-        <li>Strengthen leadership and influence</li>
-        <li><strong>Unlock full report to see all steps →</strong></li>
-      </ul>
-
-      <h3>4. Skills to Focus On</h3>
-      <ul>
-        <li>Leadership</li>
-        <li>Strategy</li>
-        <li><strong>+ personalized skill roadmap</strong></li>
-      </ul>
-
+      <button id="unlockBtn" class="btn-primary" onclick="unlockFullReport()">
+        Unlock Full Report ($5)
+      </button>
     </div>
+  `);
 
-    <p style="color:#fde047;font-weight:bold;margin-top:18px;">
-      Your score shows where you are.<br>
-      This report shows what to do next.
-    </p>
-
-    <br>
-
-    <button id="unlockBtn" class="btn-primary" onclick="unlockFullReport()">
-      Unlock Full Report ($5)
-    </button>
-
-    <br><br>
-
-    <button class="btn-secondary" onclick="showResult()">Back to Result</button>
-  `;
-}
-      
-    　setTimeout(() => {
-        const btn = document.getElementById("unlockBtn");
-
-        if(btn){
-          btn.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-        }
-      }, 50);
+  setTimeout(() => {
+    const btn = document.getElementById("unlockBtn");
+    if(btn){
+      btn.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
     }
+  }, 100);
+}
 
     function unlockFullReport(){
       if(typeof gtag === "function"){
