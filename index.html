@@ -1101,66 +1101,43 @@
   game.innerHTML = `
     <h2>Your AI Positioning Report</h2>
 
-    <div class="preview-box">
+    <p><strong>Your Position Score:</strong> ${aiScore}% (${result})</p>
 
-      <p><strong>Your Position Score:</strong> ${aiScore}% (${result})</p>
+    <p style="color:#fde047;font-weight:bold;margin-top:10px;">
+      Your position is already shifting.
+    </p>
 
-      <hr>
+    <p class="small-note">
+      Your full strategy, risk timeline, and next moves are locked.
+    </p>
 
-      <h3>1. Your Risk Timeline</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "High disruption risk within 1–2 years."
-            : aiScore < 70
-            ? "Moderate shift expected within 2–4 years."
-            : "Low disruption risk. Strong position for 3–5+ years."
-        }
-      </p>
-
-      <h3>2. What This Means</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "Your role is highly exposed to automation."
-            : aiScore < 70
-            ? "Your role is evolving."
-            : "Your role has strong human leverage."
-        }
-      </p>
-
-      <h3>3. Your Next Moves</h3>
-      <p style="opacity:0.5;">
-        • Strategic repositioning steps<br>
-        • AI leverage opportunities<br>
-        • Career shift pathways
-      </p>
-
-      <h3>4. Skills to Focus On</h3>
-      <ul>
-        <li>Leadership</li>
-        <li>Strategy</li>
-        <li style="opacity:0.5;">+ personalized roadmap (locked)</li>
-      </ul>
-
+    <div style="
+      margin-top:20px;
+      padding:20px;
+      border-radius:14px;
+      background:#0f172a;
+      filter: blur(4px);
+      opacity:0.6;
+    ">
+      <p>1. Your Risk Timeline</p>
+      <p>2. What This Means</p>
+      <p>3. Your Next Moves</p>
+      <p>4. Skills to Focus On</p>
     </div>
 
-    <p style="margin-top:16px;text-align:center;">
+    <p style="margin-top:16px;">
       Continue below to unlock your full strategy ↓
     </p>
-
-    <p style="color:#fde047;font-weight:bold;margin-top:18px;text-align:center;">
-      Your score shows where you are.<br>
-      This report shows what to do next.
-    </p>
-
-    <br>
 
     <div style="text-align:center; margin-top:24px;">
       <button id="unlockBtn" class="btn-primary" onclick="unlockFullReport()">
         Unlock My AI Strategy ($5)
       </button>
     </div>
+
+    <br><br>
+
+    <button class="btn-secondary" onclick="showResult()">Back to Result</button>
   `;
 
   setTimeout(() => {
@@ -1171,7 +1148,7 @@
         block: "center"
       });
     }
-  }, 100);
+  }, 50);
 }
 
     function unlockFullReport(){
