@@ -1450,7 +1450,7 @@ ${getResultURL()}`;
   const params = new URLSearchParams(window.location.search);
 
   if(params.get("paid") === "true"){
-    showFullReport();
+    alert("Payment successful! Your full report will be available soon.");
     return;
   }
 
