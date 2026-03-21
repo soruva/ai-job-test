@@ -1027,6 +1027,55 @@
       animateScore(aiScore);
     }
 
+    function showFullReport(){
+  const game = document.getElementById("game");
+  if(!game) return;
+
+  game.innerHTML = `
+    <h2>Your Full AI Positioning Report</h2>
+
+    <div class="preview-box">
+
+      <p><strong>Your Position Score:</strong> ${aiScore}% (${result})</p>
+
+      <hr>
+
+      <h3>1. Your Position Reality</h3>
+      <p>
+        ${
+          aiScore < 40
+            ? "You are in a high-risk zone."
+            : aiScore < 70
+            ? "You are in a transition phase."
+            : "You are in a strong leverage position."
+        }
+      </p>
+
+      <h3>2. What Happens Next</h3>
+      <ul>
+        <li>AI will reshape your role</li>
+        <li>Your value depends on adaptation</li>
+        <li>Position shift is already happening</li>
+      </ul>
+
+      <h3>3. Your Next Moves</h3>
+      <ul>
+        <li>Adopt AI tools immediately</li>
+        <li>Move toward decision-making roles</li>
+        <li>Increase leverage through AI</li>
+      </ul>
+
+      <h3>4. Skills to Focus On</h3>
+      <ul>
+        <li>Strategy</li>
+        <li>AI collaboration</li>
+        <li>Leadership</li>
+      </ul>
+
+    </div>
+  `;
+}
+
     function showPreview(){
   const emailField = document.getElementById("emailInput");
   const email = emailField ? emailField.value.trim() : "";
