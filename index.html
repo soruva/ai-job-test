@@ -1507,14 +1507,23 @@ ${getResultURL()}`;
 }
       
     window.addEventListener("DOMContentLoaded", () => {
-      initFAQAccordion();
-      initLiveCounters();
 
+  initFAQAccordion();
+  initLiveCounters();
 
-      if(!showSharedResultFromURL()){
-        showStart();
-      }
-    });
+  const params = new URLSearchParams(window.location.search);
+
+  if(params.get("paid") === "true"){
+    showFullReport();
+    return;
+  }
+
+  if(showSharedResultFromURL()){
+    return;
+  }
+
+  showStart();
+});
   </script>
 </body>
 </html>
