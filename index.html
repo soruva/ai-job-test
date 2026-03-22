@@ -1129,6 +1129,10 @@
   const game = document.getElementById("game");
   if(!game) return;
 
+  if(!aiScore){
+  return showStart();
+  }    
+
   let riskSection = "";
   let meaningSection = "";
   let advantageSection = "";
