@@ -1126,6 +1126,117 @@
   const game = document.getElementById("game");
   if(!game) return;
 
+  let riskSection = "";
+  let meaningSection = "";
+  let advantageSection = "";
+  let nextMovesSection = "";
+  let skillsSection = "";
+
+  if(aiScore < 40){
+
+    riskSection = "High risk: your role may be significantly disrupted within 1–2 years.";
+
+    meaningSection = `
+      You are currently in a vulnerable position.
+      Most people in this range rely heavily on repeatable or automatable work.
+    `;
+
+    advantageSection = `
+      <ul>
+        <li>You still have time to pivot</li>
+        <li>You can move before full disruption happens</li>
+        <li>Early movers gain massive advantage</li>
+      </ul>
+    `;
+
+    nextMovesSection = `
+      <ul>
+        <li>Identify tasks in your job that can be automated</li>
+        <li>Start using AI tools daily (ChatGPT, automation tools)</li>
+        <li>Shift from execution → decision-making tasks</li>
+      </ul>
+    `;
+
+    skillsSection = `
+      <ul>
+        <li>AI tool usage</li>
+        <li>Problem-solving</li>
+        <li>Adaptability</li>
+      </ul>
+    `;
+
+  }
+
+  else if(aiScore < 70){
+
+    riskSection = "Moderate risk: your role is evolving and will change within 2–4 years.";
+
+    meaningSection = `
+      You are in a transition phase.
+      People in this range either move up — or fall behind.
+    `;
+
+    advantageSection = `
+      <ul>
+        <li>You are ahead of many people</li>
+        <li>Your adaptability is your biggest asset</li>
+        <li>You can still choose your direction</li>
+      </ul>
+    `;
+
+    nextMovesSection = `
+      <ul>
+        <li>Integrate AI into your daily workflow</li>
+        <li>Take on more strategic responsibilities</li>
+        <li>Reduce reliance on manual execution tasks</li>
+      </ul>
+    `;
+
+    skillsSection = `
+      <ul>
+        <li>AI collaboration</li>
+        <li>Strategic thinking</li>
+        <li>Communication & influence</li>
+      </ul>
+    `;
+
+  }
+
+  else {
+
+    riskSection = "Low risk: your role has strong positioning for the next 3–5+ years.";
+
+    meaningSection = `
+      You are in a strong position.
+      The focus is no longer survival — it is leverage.
+    `;
+
+    advantageSection = `
+      <ul>
+        <li>You already have high-value skills</li>
+        <li>You can multiply output using AI</li>
+        <li>You can move into leadership or strategic roles</li>
+      </ul>
+    `;
+
+    nextMovesSection = `
+      <ul>
+        <li>Use AI to scale your output and decisions</li>
+        <li>Move into leadership and strategic roles</li>
+        <li>Build systems instead of doing manual work</li>
+      </ul>
+    `;
+
+    skillsSection = `
+      <ul>
+        <li>Leadership</li>
+        <li>Strategy</li>
+        <li>Creative direction</li>
+      </ul>
+    `;
+
+  }
+
   game.innerHTML = `
     <h2>Your AI Strategy Report</h2>
 
@@ -1136,76 +1247,31 @@
       <hr>
 
       <h3>1. Your Risk Timeline</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "High risk: your role may be significantly disrupted within 1–2 years."
-            : aiScore < 70
-            ? "Moderate risk: your role will evolve within 2–4 years."
-            : "Low risk: your role is strong, but still evolving over time."
-        }
-      </p>
+      <p>${riskSection}</p>
 
       <h3>2. What This Means</h3>
-      <p>
-        ${
-          aiScore < 40
-            ? "Your current position is highly exposed. Immediate repositioning is critical."
-            : aiScore < 70
-            ? "You are in a transition phase. Strategic moves now will define your future."
-            : "You have leverage. The focus is scaling your influence and output."
-        }
-      </p>
+      <p>${meaningSection}</p>
 
       <h3>3. Your Strategic Advantage</h3>
-      <ul>
-        ${
-          aiScore < 40
-            ? `
-              <li>You can still pivot before full disruption</li>
-              <li>You have transferable skills to reposition</li>
-              <li>Early movers gain disproportionate advantage</li>
-            `
-            : aiScore < 70
-            ? `
-              <li>You are ahead of many but not safe</li>
-              <li>Your adaptability is your key asset</li>
-              <li>Positioning now creates leverage later</li>
-            `
-            : `
-              <li>You are already in a strong position</li>
-              <li>You can multiply output using AI</li>
-              <li>You can move into higher-value roles</li>
-            `
-        }
-      </ul>
+      ${advantageSection}
 
       <h3>4. Your Exact Next Moves</h3>
-      <ul>
-        <li>Start integrating AI into your daily workflow</li>
-        <li>Shift toward decision-making and strategy roles</li>
-        <li>Build leverage through systems, not effort</li>
-      </ul>
+      ${nextMovesSection}
 
       <h3>5. Skills You Must Build Now</h3>
-      <ul>
-        <li>AI collaboration (not replacement)</li>
-        <li>Strategic thinking</li>
-        <li>Leadership & influence</li>
-      </ul>
+      ${skillsSection}
 
-      <h3>6. Your 90-Day Action Plan</h3>
-      <ul>
-        <li>Week 1–2: Learn 1–2 AI tools relevant to your role</li>
-        <li>Week 3–6: Apply AI to real work tasks</li>
-        <li>Week 7–12: Shift into higher-value responsibilities</li>
-      </ul>
+      <h3>6. Your Position Shift Scenario</h3>
+      <p>
+        If you stay the same → your role becomes less valuable.<br>
+        If you adapt early → you move into higher leverage positions.
+      </p>
 
     </div>
 
     <p style="color:#fde047;font-weight:bold;margin-top:18px;">
-      Your position is not fixed.  
-      The next moves you make will define your future.
+      The difference between people who win and lose in AI is not talent.<br>
+      It is positioning.
     </p>
 
     <br>
