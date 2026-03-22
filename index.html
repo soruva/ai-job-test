@@ -1546,8 +1546,8 @@ ${getResultURL()}`;
   const params = new URLSearchParams(window.location.search);
 
   if(params.get("paid") === "true"){
-    alert("Payment successful! Your full report will be available soon.");
-    return;
+  showPaidReport();
+  return;
   }
 
   if(showSharedResultFromURL()){
