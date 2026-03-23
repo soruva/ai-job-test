@@ -1369,6 +1369,50 @@
       }, 16);
     }
 
+    function getRoleInsight(role){
+  const map = {
+    "lawyer": "AI is automating research and documentation, but not strategic judgment.",
+    "teacher": "AI is augmenting content delivery, but human guidance remains critical.",
+    "designer": "AI accelerates production, but taste and direction remain human-driven.",
+    "software engineer": "AI increases productivity but shifts value to system design.",
+    "accountant": "Automation is replacing repetitive tasks but advisory roles are growing."
+  };
+
+  return map[role.toLowerCase()] || "AI is changing your role depending on how you adapt.";
+}
+
+function getNextMoves(aiScore){
+  if(aiScore < 40){
+    return [
+      "Reduce repetitive tasks",
+      "Start using AI daily",
+      "Shift toward decision-making roles"
+    ];
+  } else if(aiScore < 70){
+    return [
+      "Integrate AI into workflow",
+      "Expand into higher-value tasks",
+      "Build leverage using AI"
+    ];
+  } else {
+    return [
+      "Scale output using AI",
+      "Move into leadership roles",
+      "Monetize your expertise"
+    ];
+  }
+}
+
+function getFutureScenario(aiScore){
+  if(aiScore < 40){
+    return "Without change, your role may lose value rapidly. Early adaptation is critical.";
+  } else if(aiScore < 70){
+    return "You are in a transition phase. The next 2–4 years will define your trajectory.";
+  } else {
+    return "You are in a strong position. The opportunity is expansion, not survival.";
+  }
+}
+
     function shareX(){
       const text = encodeURIComponent(
       `Most people have no idea where they stand in the AI economy.
